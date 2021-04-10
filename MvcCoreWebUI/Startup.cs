@@ -84,12 +84,24 @@ namespace MvcCoreWebUI
             app.UseStaticFiles();
             app.UseRouting();
 
+            #region Site Routing
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                  name: "default",
                  pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            #endregion
+
+            #region Panel Routing
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+            #endregion
         }
     }
 }

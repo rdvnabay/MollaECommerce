@@ -10,15 +10,15 @@ using MvcCoreWebUI.Identity;
 namespace MvcCoreWebUI.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20210410113458_InitialIdentity")]
+    [Migration("20210410125608_InitialIdentity")]
     partial class InitialIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -135,18 +135,18 @@ namespace MvcCoreWebUI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
+                        .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -168,8 +168,8 @@ namespace MvcCoreWebUI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -190,12 +190,12 @@ namespace MvcCoreWebUI.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -213,17 +213,17 @@ namespace MvcCoreWebUI.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
+                        .HasName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
+                        .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
