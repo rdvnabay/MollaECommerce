@@ -15,5 +15,6 @@ namespace Entities.Concrete
         public double Stock { get; set; }
 
         public List<Image>Images { get; set; }
+        public ProductDetail ProductDetail { get; set; }
     }
 }
