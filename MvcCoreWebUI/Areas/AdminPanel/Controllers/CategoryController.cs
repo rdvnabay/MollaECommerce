@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvcCoreWebUI.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
-    public class ProductController : Controller
+    public class CategoryController : Controller
     {
         public IActionResult Index()
         {
@@ -21,18 +21,18 @@ namespace MvcCoreWebUI.Areas.AdminPanel.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Product product) 
+        public IActionResult Add(Category category)
         {
             return View();
         }
 
-        public IActionResult Edit(int productId)
+        public IActionResult Edit(int categoryId)
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(Category category)
         {
             return View();
         }

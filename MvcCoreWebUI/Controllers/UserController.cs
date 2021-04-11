@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MvcCoreWebUI.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Wishlist()
         {
             return View();
         }

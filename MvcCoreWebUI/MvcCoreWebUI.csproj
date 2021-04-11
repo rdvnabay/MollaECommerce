@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210411180025_AddedProduct-ProductDetail-ImageEntity.cs" />
+    <Compile Remove="Migrations\20210411180025_AddedProduct-ProductDetail-ImageEntity.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Areas\AdminPanel\Data\" />
     <Folder Include="Areas\AdminPanel\Models\" />
     <Folder Include="Models\" />

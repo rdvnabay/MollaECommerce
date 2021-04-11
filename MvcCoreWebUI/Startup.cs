@@ -85,7 +85,21 @@ namespace MvcCoreWebUI
             app.UseRouting();
 
 
+            #region Panel Routing
+            app.UseEndpoints(endpoints =>
+            {
+                //  endpoints.MapControllerRoute(
+                //  name: "admin-product-add",
+                //  pattern: "{area:exists}/Product/Add",
+                //  defaults: new {controller="Product",action= "Add" }
+                //);
 
+                endpoints.MapControllerRoute(
+                  name: "admin-panel",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
+            #endregion
             #region Site Routing
             app.UseEndpoints(endpoints =>
             {
@@ -94,21 +108,7 @@ namespace MvcCoreWebUI
                  pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             #endregion
-            #region Panel Routing
-            app.UseEndpoints(endpoints =>
-            {
-               //  endpoints.MapControllerRoute(
-               //  name: "admin-product-add",
-               //  pattern: "{area:exists}/Product/Add",
-               //  defaults: new {controller="Product",action= "Add" }
-               //);
-
-                endpoints.MapControllerRoute(
-                  name: "admin-panel",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-            });
-            #endregion
+         
         }
     }
 }

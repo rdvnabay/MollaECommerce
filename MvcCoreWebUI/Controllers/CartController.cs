@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace MvcCoreWebUI.Controllers
 {
-    public class HomeController : Controller
+    public class CartController : Controller
     {
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Contact()
         {
             return View();
         }
