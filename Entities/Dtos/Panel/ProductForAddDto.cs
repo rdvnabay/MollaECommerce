@@ -13,8 +13,8 @@ namespace Entities.Dtos.Panel
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
-        public short UnitsInStock { get; set; }
-        public decimal UnitPrice { get; set; }
+        public short Stock { get; set; }
+        public decimal Price { get; set; }
 
         //ProductDetail
         public bool IsActive { get; set; }
