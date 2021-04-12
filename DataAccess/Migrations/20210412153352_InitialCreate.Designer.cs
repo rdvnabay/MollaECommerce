@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MollaECommerceDbContext))]
-    [Migration("20210412140652_InitialCreate")]
+    [Migration("20210412153352_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Product", b =>
@@ -87,7 +87,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductDetail");
+                    b.ToTable("ProductDetails");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Image", b =>

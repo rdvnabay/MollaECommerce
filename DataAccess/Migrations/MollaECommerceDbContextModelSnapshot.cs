@@ -36,7 +36,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Product", b =>
@@ -85,7 +85,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductDetail");
+                    b.ToTable("ProductDetails");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Image", b =>

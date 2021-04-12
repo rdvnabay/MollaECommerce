@@ -1,3 +1,5 @@
+using Business.Abstract;
+using Business.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MvcCoreWebUI.Identity;
+using MvcCoreWebUI.Services.CartSession;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +29,10 @@ namespace MvcCoreWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            #region Dependency Injection
+            services.AddSingleton<ICartService, CartManager>();
+            #endregion
+
             #region DbConnectionOptions
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -39,7 +46,6 @@ namespace MvcCoreWebUI
 
             services.Configure<IdentityOptions>(options =>
             {
-
                 options.Password.RequiredLength = 6;
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -50,6 +56,13 @@ namespace MvcCoreWebUI
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
+            #endregion
+
+            #region Session Settings
+            services.AddSingleton<ICartSessionService, CartSessionManager>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSession();
+            services.AddDistributedMemoryCache();
             #endregion
 
             #region Cookie Settings
@@ -81,8 +94,8 @@ namespace MvcCoreWebUI
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+            app.UseSession();
             app.UseRouting();
-
 
             #region Panel Routing
             app.UseEndpoints(endpoints =>

@@ -25,7 +25,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -35,9 +35,9 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Products_ProductId",
+                        name: "FK_Images_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -45,7 +45,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductDetail",
+                name: "ProductDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -56,9 +56,9 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductDetail", x => x.Id);
+                    table.PrimaryKey("PK_ProductDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductDetail_Products_Id",
+                        name: "FK_ProductDetails_Products_Id",
                         column: x => x.Id,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -66,18 +66,18 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_ProductId",
-                table: "Image",
+                name: "IX_Images_ProductId",
+                table: "Images",
                 column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropTable(
-                name: "ProductDetail");
+                name: "ProductDetails");
 
             migrationBuilder.DropTable(
                 name: "Products");

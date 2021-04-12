@@ -1,0 +1,51 @@
+﻿@model Cart
+<div class="dropdown cart-dropdown">
+    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+        <div class="icon">
+            <i class="icon-shopping-cart"></i>
+            <span class="cart-count">@Model.CartLines.Count</span>
+        </div>
+        <p>Sepetim</p>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-right">
+        <div class="dropdown-cart-products">
+            @foreach (var item in Model.CartLines)
+            {
+                <div class="product">
+                    <div class="product-cart-details">
+                        <h4 class="product-title">
+                            <a href="product.html">@item.Product.Name</a>
+                        </h4>
+
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty">@item.Quantity</span>
+                            x $@item.Price
+                        </span>
+                    </div><!-- End .product-cart-details -->
+
+                    <figure class="product-image-container">
+                        <a href="product.html" class="product-image">
+                            <img src="~/site/img/products/cart/product-1.jpg" alt="product">
+                        </a>
+                    </figure>
+                    <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-productId="1"
+                       class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                </div><!-- End .product -->
+            }
+        </div><!-- End .cart-product -->
+
+        <div class="dropdown-cart-total">
+            <span>@Model.Total</span>
+
+            <span class="cart-total-price">$160.00</span>
+        </div><!-- End .dropdown-cart-total -->
+
+        <div class="dropdown-cart-action">
+            <a asp-controller="Cart" asp-action="Index" 
+               class="btn btn-primary">View Cart</a>
+            <a asp-controller="Order" asp-action="Checkout" 
+               class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+        </div><!-- End .dropdown-cart-total -->
+    </div><!-- End .dropdown-menu -->
+</div><!-- End .cart-dropdown -->
