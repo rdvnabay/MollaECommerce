@@ -10,14 +10,14 @@ using MvcCoreWebUI.Identity;
 namespace MvcCoreWebUI.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20210410125608_InitialIdentity")]
+    [Migration("20210412140326_InitialIdentity")]
     partial class InitialIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.14")
+                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 

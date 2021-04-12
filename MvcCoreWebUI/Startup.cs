@@ -29,8 +29,7 @@ namespace MvcCoreWebUI
             #region DbConnectionOptions
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-
+           // services.AddDbContext<MollaECommerceDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShopAppDemo.WebUI")));
             #endregion
 
             #region IdentityOptions
