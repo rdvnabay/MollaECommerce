@@ -51,10 +51,5 @@ namespace MvcCoreWebUI.Controllers
             _cartSessionService.SetCart(cart);
             return RedirectToAction("Index", "Cart");
         }
-
-        //public IActionResult UpdateCart(Cart cart)
-        //{
-           
-        //}
     }
 }

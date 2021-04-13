@@ -68,11 +68,18 @@ namespace MvcCoreWebUI.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
+            //var result1 = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
             }
             return View("Index");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect("~/");
         }
     }
 }

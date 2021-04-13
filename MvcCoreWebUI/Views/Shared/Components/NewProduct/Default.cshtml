@@ -65,12 +65,12 @@
                             </a>
 
                             <div class="product-action-vertical">
-                                <a asp-controller="User" asp-action="Wishlist" asp-route-productId="1" 
+                                <a asp-controller="Wishlist" asp-action="AddToWishlist" asp-route-productId="@product.Id" 
                                    class="btn-product-icon btn-wishlist" title="Favorilerime Ekle"></a>
                             </div><!-- End .product-action -->
 
                             <div class="product-action">
-                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id" 
+                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id"
                                    class="btn-product btn-cart" title="Sepete Ekle"><span>Sepete Ekle</span></a>
                                 <a asp-controller="Product" asp-action="Detail" asp-route-productId="@product.Id"
                                    class="btn-product btn-quickview" title="İncele"><span>İncele</span></a>

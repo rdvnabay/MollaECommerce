@@ -21,19 +21,15 @@
                                 </div><!-- End .header-menu -->
                             </div>
                         </li>
-                        <li>
-                            <div class="header-dropdown">
-                                <a href="#">English</a>
-                                <div class="header-menu">
-                                    <ul>
-                                        <li><a href="#">English</a></li>
-                                        <li><a href="#">French</a></li>
-                                        <li><a href="#">Spanish</a></li>
-                                    </ul>
-                                </div><!-- End .header-menu -->
-                            </div>
-                        </li>
-                        <li><a href="#signin-modal" data-toggle="modal">Giriş Yap / Kayıt O</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-controller="User" asp-action="Index">@User.Identity.Name</a></li>
+                            <li><a asp-controller="Account" asp-action="Logout">Çıkış Yap</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="#signin-modal" data-toggle="modal">Giriş Yap / Kayıt Ol</a></li>
+                        }
                     </ul>
                 </li>
             </ul><!-- End .top-menu -->
@@ -96,17 +92,9 @@
                 </div><!-- End .dropdown-menu -->
             </div><!-- End .compare-dropdown -->
 
-            <div class="wishlist">
-                <a asp-controller="User" asp-action="Wishlist" title="Favorilerim">
-                    <div class="icon">
-                        <i class="icon-heart-o"></i>
-                        <span class="wishlist-count badge">3</span>
-                    </div>
-                    <p>Favorilerim</p>
-                </a>
-            </div><!-- End .compare-dropdown -->
 
-           @await Component.InvokeAsync("CartSummary")
+            @await Component.InvokeAsync("WishListSummary")
+            @await Component.InvokeAsync("CartSummary")
         </div><!-- End .header-right -->
     </div><!-- End .container -->
 </div><!-- End .header-middle -->

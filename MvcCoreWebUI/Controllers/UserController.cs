@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
+using MvcCoreWebUI.Services.WishListSession;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,14 @@ namespace MvcCoreWebUI.Controllers
 {
     public class UserController : Controller
     {
+        private IProductService _productService;
+        private IWishListSessionService _wishListSessionService;
+        public UserController(IProductService productService,
+            IWishListSessionService wishListSessionService)
+        {
+            _productService = productService;
+            _wishListSessionService = wishListSessionService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -15,7 +25,8 @@ namespace MvcCoreWebUI.Controllers
 
         public IActionResult Wishlist()
         {
-            return View();
+            var wishList = _wishListSessionService.GetWishList();
+            return View(wishList);
         }
     }
 }

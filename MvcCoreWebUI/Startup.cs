@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MvcCoreWebUI.Identity;
 using MvcCoreWebUI.Services.CartSession;
+using MvcCoreWebUI.Services.WishListSession;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,12 @@ namespace MvcCoreWebUI
             services.AddMvc();
             #region Dependency Injection
             services.AddSingleton<ICartService, CartManager>();
+            services.AddSingleton<IWishListService, WishListManager>();
             #endregion
 
             #region DbConnectionOptions
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-           // services.AddDbContext<MollaECommerceDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShopAppDemo.WebUI")));
             #endregion
 
             #region IdentityOptions
@@ -50,9 +51,7 @@ namespace MvcCoreWebUI
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.AllowedForNewUsers = true;
-
                 options.User.RequireUniqueEmail = false;
-
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
@@ -60,6 +59,7 @@ namespace MvcCoreWebUI
 
             #region Session Settings
             services.AddSingleton<ICartSessionService, CartSessionManager>();
+            services.AddSingleton<IWishListSessionService, WishListSessionManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
             services.AddDistributedMemoryCache();
@@ -95,6 +95,8 @@ namespace MvcCoreWebUI
             }
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseRouting();
 
             #region Panel Routing
@@ -115,6 +117,11 @@ namespace MvcCoreWebUI
             #region Site Routing
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "product-detail",
+                pattern: "product/detail/{productId?}",
+                defaults: new {controller="Product", action="Detail" });
+
                 endpoints.MapControllerRoute(
                  name: "default",
                  pattern: "{controller=Home}/{action=Index}/{id?}");

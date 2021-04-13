@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace MvcCoreWebUI.Controllers
 {
     public class ProductController : Controller
     {
+        private IProductService _productService;
+        public ProductController(IProductService productService)
+        {
+            _productService = productService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -25,7 +31,8 @@ namespace MvcCoreWebUI.Controllers
 
         public IActionResult Detail(int productId)
         {
-            return View();
+            var data= _productService.GetById(productId).Data;
+            return View(data);
         }
     }
 }

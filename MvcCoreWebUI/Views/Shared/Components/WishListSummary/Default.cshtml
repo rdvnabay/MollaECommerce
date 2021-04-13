@@ -1,0 +1,10 @@
+﻿@model WishList 
+<div class="wishlist">
+    <a asp-controller="User" asp-action="Wishlist" title="Favorilerim">
+        <div class="icon">
+            <i class="icon-heart-o"></i>
+            <span class="wishlist-count badge">@Model.WishListLines.Count</span>
+        </div>
+        <p>Favorilerim</p>
+    </a>
+</div><!-- End .compare-dropdown -->
