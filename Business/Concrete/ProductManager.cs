@@ -37,5 +37,10 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<Product>(_productDal.Get(p => p.Id == productId));
         }
+
+        public IDataResult<Product> GetImagesByProductId(int productId)
+        {
+           return new SuccessDataResult<Product>(_productDal.GetImagesByProductId(productId));
+        }
     }
 }

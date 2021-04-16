@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
-                    <table class="table table-cart table-mobile">
+                    <table class="table table-cart table-mobile" id="cart-table">
                         <thead>
                             <tr>
                                 <th>Ürün</th>
@@ -27,35 +27,38 @@
                                 <th>Adet</th>
                                 <th>Toplam Fiyat</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach (var item in Model.CartLines)
                             {
-                                <tr>
-                                    <td class="product-col">
-                                        <div class="product">
-                                            <figure class="product-media">
-                                                <a href="#">
-                                                    <img src="~/site/img/products/table/product-1.jpg" alt="Product image">
-                                                </a>
-                                            </figure>
+                            <tr>
+                                <td class="product-col">
 
-                                            <h3 class="product-title">
-                                                <a href="#">@item.Product.Name</a>
-                                            </h3><!-- End .product-title -->
-                                        </div><!-- End .product -->
-                                    </td>
-                                    <td class="price-col" id="product-Price">$@item.Product.Price</td>
-                                    <td class="quantity-col">
-                                        <div class="cart-product-quantity">
-                                            <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required id="quantity">
-                                        </div><!-- End .cart-product-quantity -->
-                                    </td>
-                                    <td class="total-col">$@((item.Product.Price)*(item.Quantity))</td>
-                                    <td class="remove-col"><button class="btn-remove"><i class="icon-close"></i></button></td>
-                                </tr>
+                                    <div class="product">
+                                        <figure class="product-media">
+                                            <a href="#">
+                                                <img src="~/site/img/products/table/product-1.jpg" alt="Product image">
+                                            </a>
+                                        </figure>
+
+                                        <h3 class="product-title">
+                                            <a href="#">@item.Product.Name</a>
+                                        </h3><!-- End .product-title -->
+                                    </div><!-- End .product -->
+                                </td>
+                                <td class="price-col product-price" id="product-price">@item.Product.Price</td>
+                                <td class="quantity-col">
+                                    <div class="cart-product-quantity">
+                                        <input type="number" name="product-quantity" class="form-control product-quantity" value="@item.Quantity" min="1" max="10" step="1" data-decimals="0" required id="quantity">
+                                    </div><!-- End .cart-product-quantity -->
+                                </td>
+                                <td class="total-col total-price">@((item.Product.Price)*(item.Quantity))</td>
+                                <td class="remove-col"><button class="btn-remove remove-from-cart"><i class="icon-close"></i></button></td>
+                                <td> <input type="hidden" class="product-id" value="@item.Product.Id" /></td>
+                            </tr>
                             }
 
 
@@ -147,17 +150,76 @@
 </div><!-- End .page-content -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script>
+    $('input[name="product-quantity"]').on('change keyup click', function () {
+        $("#cart-table > tbody > tr").each(function (item) {
+            console.log(item);
+            let productId = Number($(this).find("input.product-id").val()); 
+            if (productId == item) {
+           
+                let price = $(this).find('.product-price').text();
+                let quantity = $(this).find('.product-quantity').val();
+                $(this).find('.total-price').text(price * quantity);
+            }
+          
+          
+            $.ajax({
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Cart/AddToCart',
+                data: { "productId": productId },
+                success: function (data) {
+                    //
+                },
+                error: function (data) {
+                    //
+                }
+            });
+        });
+
+    });
+</script>
+@*<script>
+    $('input[name="product-quantity"]').on('change keyup click', function () {
+        $("#cart-table > tbody > tr").each(function () {
+            let price = $(this).find('.product-price').text();
+            let quantity = $(this).find('.product-quantity').val();
+            $(this).find('.total-price').text(price * quantity);
+            let productId = Number($(this).find("input.product-id").val());
+            $.ajax({
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Cart/AddToCart',
+                data: { "productId": productId },
+                success: function (data) {
+                    //
+                },
+                error: function (data) {
+                    //
+                }
+            });
+        });
+
+    });
+</script>*@
+
 <script>
     $(document).ready(function () {
-        $("#btn").click(function () {
-            var productPrice = $("#product-Price").val();
-            var quantity = $("#quantity").val();
-            var result = productPrice * quantity;
-            alert(result);
-            console.log("Yazı");
-        });
-        $("#btn2").click(function () {
-            alert("HTML: " + $("#veri").html());
+        var productId = $('.product-id').val();
+        $('.remove-from-cart').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                url: '/Cart/RemoveFromCart',
+                data: { "productId": productId },
+                success: function (data) {
+                    $('#cart-table > tbody > tr').remove();
+                },
+                error: function (data) {
+                    //
+                }
+            });
         });
     });
 </script>

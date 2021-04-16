@@ -31,7 +31,7 @@ namespace MvcCoreWebUI.Controllers
 
         public IActionResult Detail(int productId)
         {
-            var data= _productService.GetById(productId).Data;
+            var data= _productService.GetImagesByProductId(productId).Data;
             return View(data);
         }
     }

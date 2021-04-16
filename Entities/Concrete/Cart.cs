@@ -10,8 +10,7 @@ namespace Entities.Concrete
         public Cart()
         {
             CartLines = new List<CartLine>();
-        }
-        public List<CartLine> CartLines { get; set; }
+        }   
         public double Total
         {
             get
@@ -19,5 +18,6 @@ namespace Entities.Concrete
                 return CartLines.Sum(c => c.Product.Price * c.Quantity);
             }
         }
+        public List<CartLine> CartLines { get; set; }
     }
 }

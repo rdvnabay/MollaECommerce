@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using MvcCoreWebUI.Identity;
 using MvcCoreWebUI.Services.CartSession;
 using MvcCoreWebUI.Services.WishListSession;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,10 @@ namespace MvcCoreWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddMvc().AddNewtonsoftJson(opt =>
+            //{
+            //    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //});
             #region Dependency Injection
             services.AddSingleton<ICartService, CartManager>();
             services.AddSingleton<IWishListService, WishListManager>();
@@ -96,8 +101,8 @@ namespace MvcCoreWebUI
             app.UseStaticFiles();
             app.UseSession();
             app.UseAuthentication();
-            app.UseAuthorization();
             app.UseRouting();
+            app.UseAuthorization();
 
             #region Panel Routing
             app.UseEndpoints(endpoints =>
@@ -114,6 +119,7 @@ namespace MvcCoreWebUI
                 );
             });
             #endregion
+
             #region Site Routing
             app.UseEndpoints(endpoints =>
             {
