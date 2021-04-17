@@ -12,7 +12,8 @@ namespace DataAccess.Concrete.EntityFramework
         {
             optionsBuilder.UseSqlServer(@"Server=DESKTOP-25CLAF2; Database=MollaECommerceDb; Trusted_Connection=true;");
         }
-
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<ProductDetail> ProductDetails { get; set; }

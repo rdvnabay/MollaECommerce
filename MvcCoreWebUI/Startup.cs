@@ -31,6 +31,7 @@ namespace MvcCoreWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddAutoMapper(typeof(Startup));
             //services.AddMvc().AddNewtonsoftJson(opt =>
             //{
             //    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
