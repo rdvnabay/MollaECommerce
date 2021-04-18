@@ -50,9 +50,24 @@ namespace MvcCoreWebUI.Controllers
         {
             var userId = _userManager.GetUserId(User);
             model.UserId = userId;
+            model.Date = DateTime.Now;
             var order = _mapper.Map<Order>(model);
-            _orderService.Add(order);
-            return View();
+
+            var orderItems = _cartSessionService.GetCart();
+           
+           
+            foreach (var item in orderItems.CartLines)
+            {
+                var orderdetail = new OrderLine
+                {
+                    ProductId = item.Product.Id,
+                    Price = item.Price,
+                    Quantity = item.Quantity
+                };
+
+                _orderService.Add(order);
+            }
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult Checkout()
         {

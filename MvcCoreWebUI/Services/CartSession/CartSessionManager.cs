@@ -22,7 +22,6 @@ namespace MvcCoreWebUI.Services.CartSession
         #endregion
 
         //Methods
-        #region GetCart
         public Cart GetCart()
         {
             Cart cartToCheck = _httpContextAccessor.HttpContext.Session.GetObject<Cart>("cart");
@@ -33,8 +32,6 @@ namespace MvcCoreWebUI.Services.CartSession
             }
             return cartToCheck;
         }
-        #endregion
-
         public void SetCart(Cart cart)
         {
             _httpContextAccessor.HttpContext.Session.SetObject("cart", cart);
