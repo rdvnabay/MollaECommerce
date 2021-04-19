@@ -34,31 +34,31 @@
                         <tbody>
                             @foreach (var item in Model.CartLines)
                             {
-                            <tr>
-                                <td class="product-col">
+                                <tr>
+                                    <td class="product-col">
 
-                                    <div class="product">
-                                        <figure class="product-media">
-                                            <a href="#">
-                                                <img src="~/site/img/products/table/product-1.jpg" alt="Product image">
-                                            </a>
-                                        </figure>
+                                        <div class="product">
+                                            <figure class="product-media">
+                                                <a href="#">
+                                                    <img src="~/site/img/products/table/product-1.jpg" alt="Product image">
+                                                </a>
+                                            </figure>
 
-                                        <h3 class="product-title">
-                                            <a href="#">@item.Product.Name</a>
-                                        </h3><!-- End .product-title -->
-                                    </div><!-- End .product -->
-                                </td>
-                                <td class="price-col product-price" id="product-price">@item.Product.Price</td>
-                                <td class="quantity-col">
-                                    <div class="cart-product-quantity">
-                                        <input type="number" name="product-quantity" class="form-control product-quantity" value="@item.Quantity" min="1" max="10" step="1" data-decimals="0" required id="quantity">
-                                    </div><!-- End .cart-product-quantity -->
-                                </td>
-                                <td class="total-col total-price">@((item.Product.Price)*(item.Quantity))</td>
-                                <td class="remove-col"><button class="btn-remove remove-from-cart"><i class="icon-close"></i></button></td>
-                                <td> <input type="hidden" id="product-id" class="product-id" value="@item.Product.Id" /></td>
-                            </tr>
+                                            <h3 class="product-title">
+                                                <a href="#">@item.Product.Name</a>
+                                            </h3><!-- End .product-title -->
+                                        </div><!-- End .product -->
+                                    </td>
+                                    <td class="price-col product-price" id="product-price">@item.Product.Price</td>
+                                    <td class="quantity-col">
+                                        <div class="cart-product-quantity">
+                                            <input type="number" name="product-quantity" class="form-control product-quantity" value="@item.Quantity" min="1" max="10" step="1" data-decimals="0" required id="quantity">
+                                        </div><!-- End .cart-product-quantity -->
+                                    </td>
+                                    <td class="total-col total-price">@((item.Product.Price)*(item.Quantity))</td>
+                                    <td class="remove-col"><button class="btn-remove remove-from-cart"><i class="icon-close"></i></button></td>
+                                    <td> <input type="hidden" name="product-id" data-product-id="@item.Product.Id" id="product-id" class="product-id" value="@item.Product.Id" /></td>
+                                </tr>
                             }
 
 
@@ -151,59 +151,63 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-@*<script>
-    $('input[name="product-quantity"]').on('change keyup click', function () {
-        $("#cart-table > tbody > tr").each(function (item) {
-            console.log(item);
-            let productId = Number($(this).find("input.product-id").val()); 
-            if (productId == item) {
-           
-                let price = $(this).find('.product-price').text();
-                let quantity = $(this).find('.product-quantity').val();
-                $(this).find('.total-price').text(price * quantity);
-            }
-          
-          
-            $.ajax({
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
-                url: '/Cart/AddToCart',
-                data: { "productId": productId },
-                success: function (data) {
-                    //
-                },
-                error: function (data) {
-                    //
+<script>
+    $(document).ready(function () {
+        $('input[name="product-quantity"]').on('change keyup click', function () {
+        $("#cart-table > tbody > tr").each(function () {
+            let productId = $(this).find("input.product-id").val();
+            let price = $(this).find('.product-price').text();
+            let quantity = $(this).find('.product-quantity').val();
+            let totalPrice = price * quantity;
+            $(this).find('.total-price').text(totalPrice);
+      
+                if (productId == $("input.product-id").val()) {
+                    /*   console.log(key);*/
+                    $.ajax({
+                        type: 'GET',
+                        contentType: 'application/json; charset=utf-8',
+                        url: '/Cart/AddToCart',
+                        data: { "productId": productId },
+                        success: function (data) { },
+                        error: function (data) { }
+                    });
                 }
             });
         });
-
     });
-</script>*@
-<script>
-    $('input[name="product-quantity"]').on('change keyup click', function () {
-        $("#cart-table > tbody > tr").each(function () {
-            let price = $(this).find('.product-price').text();
-            let quantity = $(this).find('.product-quantity').val();
-            $(this).find('.total-price').text(price * quantity);
-               
-        });
-        let productId = $("input.product-id").val(); 
-        $.ajax({
-            type: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            url: '/Cart/AddToCart',
-            data: { "productId": productId },
-            success: function (data) {
-                alert(productId)
-            },
-            error: function (data) {
-                //
-            }
-        });
-           
-        });
 </script>
+
+@*<script>
+        $('input[name="product-quantity"]').on('change keyup click', function () {
+            $("#cart-table > tbody > tr").each(function () {
+                let productId = $(this).find("input.product-id").val();
+                let price = $(this).find('.product-price').text();
+                let quantity = $(this).find('.product-quantity').val();
+                let totalPrice = price * quantity;
+
+                $(this).find('.total-price').text(totalPrice);
+
+                if (productId == $("input.product-id").val()) {
+                 /*   console.log(key);*/
+                    $.ajax({
+                        type: 'GET',
+                        contentType: 'application/json; charset=utf-8',
+                        url: '/Cart/AddToCart',
+                        data: { "productId": productId },
+                        success: function (data) {
+                        },
+                        error: function (data) {
+                            //
+                        }
+                    });
+                }
+
+            });
+
+
+
+            });
+    </script>*@
 
 <script>
     $(document).ready(function () {

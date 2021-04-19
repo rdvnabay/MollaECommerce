@@ -18,6 +18,11 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        public IDataResult<List<Product>> GetAll(string sortBy)
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(sortBy));
+        }
+
         public IDataResult<List<Product>> GetAll()
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll());

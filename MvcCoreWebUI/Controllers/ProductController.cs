@@ -14,9 +14,11 @@ namespace MvcCoreWebUI.Controllers
         {
             _productService = productService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string sortBy)
         {
-            return View();
+            //ViewBag.AlphabeticSortA =String.IsNullOrEmpty(sortBy) ? "alphabeticA": "";
+            //ViewBag.AlphabeticSortZ =String.IsNullOrEmpty(sortBy) ? "alphabeticZ": "";
+            return View(_productService.GetAll(sortBy).Data);
         }
 
         public IActionResult Index2()

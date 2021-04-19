@@ -8,6 +8,7 @@ namespace DataAccess.Abstract
 {
     public interface IProductDal:IEntityRepository<Product>
     {
+        List<Product> GetAll(string sortBy);
         List<Product> GetProductsImages();
         Product GetImagesByProductId(int productId);
     }

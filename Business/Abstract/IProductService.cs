@@ -9,6 +9,7 @@ namespace Business.Abstract
    public interface IProductService
     {
         IDataResult<List<Product>> GetAll();
+        IDataResult<List<Product>> GetAll(string sortBy);
         IDataResult<Product> GetAllById(int productId);
         IDataResult<Product> GetById(int productId);
         IDataResult<Product> GetImagesByProductId(int productId);
