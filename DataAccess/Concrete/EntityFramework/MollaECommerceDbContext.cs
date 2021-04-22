@@ -10,7 +10,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-25CLAF2; Database=MollaECommerceDb; Trusted_Connection=true;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-T7I39GU; Database=MollaECommerceDb; Trusted_Connection=true;");
         }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderLine> OrderLines { get; set; }

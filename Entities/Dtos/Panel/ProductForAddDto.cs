@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Abstract;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,5 +25,9 @@ namespace Entities.Dtos.Panel
 
         //Category
         public int CategoryId { get; set; }
+
+
+        //Images
+        public List<Image> Images { get; set; }
     }
 }
